@@ -12,88 +12,82 @@
     
     <div class="w-full flex justify-center items-center">
 
-        <div id="container-forms" class="flex flex-col md:flex-row h-auto md:h-[80vh] w-full max-w-5xl items-stretch rounded-2xl shadow-2xl overflow-hidden">
+        <div id="container-forms" class="flex flex-col md:flex-row w-full md:w-[100vh] h-auto md:h-[80vh] items-stretch rounded-2xl shadow-2xl overflow-hidden bg-white">
 
-            <div class="h-full w-full flex justify-start">
-                <div id="container-login" class="transition-all duration-500 ease-in-out transform flex flex-col w-full md:w-[50vh] bg-white p-6 md:p-10 rounded-t-2xl md:rounded-t-none md:rounded-bl-2xl md:rounded-tl-2xl">
+            <div class="h-full w-full flex flex-col md:flex-row justify-start">
+                
+                <div id="container-login" class="transition-all duration-500 ease-in-out transform flex flex-col w-full md:w-[50vh] bg-white p-8 md:p-10 order-2 md:order-1">
                     <div class="text-left text-2xl font-bold mb-6 md:mb-10 text-red-500">
                         <h1>Entrar</h1>
                     </div>
-                    <div class="flex flex-1 flex-col">
-                        <form id="form2" class="flex flex-1 flex-col gap-6 md:gap-10 justify-center">
-                            <div class="flex flex-col text-lg md:text-xl">
+                    <div class="flex flex-1 flex-col justify-center">
+                        <form id="form2" class="flex flex-col gap-6 md:gap-10">
+                            <div class="flex flex-col text-xl">
                                 <label for="email" class="font-bold">Email:</label>
                                 <input type="email" name="email" id="input-email2" placeholder="Insira seu email" class="border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 transition-all duration-300 outline-none" required>
                             </div>
-                            <div class="flex flex-col text-lg md:text-xl">
+                            <div class="flex flex-col text-xl">
                                 <label for="password" class="font-bold">Senha:</label>
                                 <div class="relative flex items-center">
-                                    <input type="password" name="password" id="input-password2" placeholder="Insira sua senha" class="w-full border-gray-400 rounded px-2 py-2 border-2 pr-10 focus:outline-none focus:border-red-500 transition-all duration-300 outline-none"  required>
+                                    <input type="password" name="password" id="input-password2" placeholder="Insira sua senha" class="w-full border-gray-400 rounded px-2 py-2 border-2 pr-10 focus:outline-none focus:border-red-500 transition-all duration-300 outline-none" required>
                                     <button type="button" id="showPass2" class="absolute right-2 text-gray-500 hover:text-red-500 transition-colors">
                                         <i class="bi bi-eye" id="icone-olho2"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div class="text-center text-xl">
-                                <input type="submit" id="btn-submit2" value="Entrar" class="w-full md:w-auto cursor-pointer bg-red-500 text-white font-bold text-xl md:text-2xl rounded-2xl px-8 py-2 duration-300 trasition-ease-in-out hover:bg-red-600 hover:-translate-y-0.5 active:bg-red-500 active:translate-y-0.5 transition-all duration-300 outline-none border-2">
+                            <div class="text-center">
+                                <input type="submit" id="btn-submit2" value="Entrar" class="w-full cursor-pointer bg-red-500 text-white font-bold text-2xl rounded-2xl px-3 py-2 duration-300 hover:bg-red-600 transition-all outline-none border-2">
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div id="image-container" class="transition-all duration-500 bg-red-500 ease-in-out transform flex flex-col gap-6 md:gap-10 justify-center items-center w-full md:w-[50vh] p-6 md:p-10 rounded-b-2xl md:rounded-b-none md:rounded-br-2xl md:rounded-tr-2xl">
+                <div id="image-container" class="transition-all duration-500 bg-red-500 ease-in-out transform flex flex-col gap-6 md:gap-10 justify-center items-center w-full md:w-[50vh] p-8 md:p-10 order-1 md:order-2">
                     <div class="text-white text-2xl md:text-3xl font-bold text-center">
                         <h1>Seja bem-vindo de volta!</h1>
                     </div>
-                    <div class="flex flex-col gap-5 text-center text-lg md:text-xl text-white">
+                    <div class="flex flex-col gap-5 text-center text-xl text-white">
                         <p>Não possui uma conta?</p>
                         <span id="desativeLogin" class="bg-white rounded-xl px-4 py-2 text-red-500 border-4 border-red-300 font-bold cursor-pointer hover:bg-red-500 hover:border-white hover:text-white transition-all duration-300 outline-none">Cadastre-se</span>
                     </div>
                 </div>
             </div>
 
-            <div class="h-full w-full flex justify-end">
-                <div id="container-cadastro" class="transition-all duration-500 ease-in-out transform hidden flex flex-col w-full md:w-[50vh] bg-white p-6 md:p-10 rounded-t-2xl md:rounded-t-none md:rounded-br-2xl md:rounded-tr-2xl">
+            <div class="h-full w-full flex flex-col md:flex-row justify-end">
+                <div id="container-cadastro" class="transition-all duration-500 ease-in-out transform hidden flex flex-col w-full md:w-[50vh] bg-white p-8 md:p-10 order-2 md:order-1">
                     <div class="text-left text-2xl font-bold mb-6 md:mb-10 text-red-500">
                         <h1>Cadastrar-se</h1>
                     </div>
-                    <div class="flex flex-1 flex-col">
-                        <form id="form" class="flex flex-col gap-4 md:gap-6 justify-center">
-                            <div class="flex flex-col text-lg md:text-xl">
-                                <label for="name" class="font-bold">Nome (opcional):</label>
-                                <input type="text" name="name" id="input-name" placeholder="Insira seu nome" class="border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 transition-all duration-300 outline-none">
-                            </div>
-                            <div class="flex flex-col text-lg md:text-xl">
-                                <label for="email" class="font-bold">Email:</label>
-                                <input type="email" name="email" id="input-email" placeholder="Insira seu email" class="border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 transition-all duration-300 outline-none" required>
-                            </div>
-                            <div class="flex flex-col text-lg md:text-xl">
-                                <label for="password" class="font-bold">Senha:</label>
-                                <div class="relative flex items-center">
-                                    <input type="password" name="password" id="input-password" placeholder="Insira sua senha" class="w-full border-gray-400 rounded px-2 py-2 border-2 pr-10 focus:outline-none focus:border-red-500 transition-all duration-300 outline-none"  required>
-                                    <button type="button" id="showPass" class="absolute right-2 text-gray-500 hover:text-red-500 transition-colors">
-                                        <i class="bi bi-eye" id="icone-olho"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="flex flex-col text-lg md:text-xl">
-                                <label for="location" class="font-bold">Localização (opcional)</label>
-                                <input type="text" name="location" id="input-local" placeholder="Ex: São Paulo, Brasil" class="border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 transition-all duration-300 outline-none">
-                            </div>
-                            <div class="text-center text-xl mt-4">
-                                <input type="submit" id="btn-submit" value="Cadastrar-se" class="w-full md:w-auto cursor-pointer bg-red-500 text-white font-bold text-xl md:text-2xl rounded-2xl px-8 py-2 duration-300 trasition-ease-in-out hover:bg-red-600 hover:-translate-y-0.5 active:bg-red-500 active:translate-y-0.5">
-                            </div>
-                        </form>
-                    </div>
+                    <form id="form" class="flex flex-col gap-4 md:gap-10 justify-center">
+                        <div class="flex flex-col text-xl">
+                            <label for="name" class="font-bold">Nome (opcional):</label>
+                            <input type="text" id="input-name" placeholder="Insira seu nome" class="border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 outline-none">
+                        </div>
+                        <div class="flex flex-col text-xl">
+                            <label for="email" class="font-bold">Email:</label>
+                            <input type="email" id="input-email" placeholder="Insira seu email" class="border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 outline-none" required>
+                        </div>
+                        <div class="flex flex-col text-xl">
+                            <label for="password" class="font-bold">Senha:</label>
+                            <input type="password" id="input-password" placeholder="Ex: 12345678" class="w-full border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 outline-none" required>
+                        </div>
+                        <div class="flex flex-col text-xl">
+                            <label for="location" class="font-bold">Localização:</label>
+                            <input type="text" id="input-local" placeholder="Ex: São Paulo, Brasil" class="border-gray-400 rounded px-2 py-2 border-2 focus:outline-none focus:border-red-500 outline-none">
+                        </div>
+                        <div class="text-center text-xl">
+                            <input type="submit" id="btn-submit" value="Cadastrar-se" class="w-full cursor-pointer bg-red-500 text-white font-bold text-2xl rounded-2xl px-3 py-2">
+                        </div>
+                    </form>
                 </div>
-                
-                <div id="image-container2" class="bg-red-500 hidden transition-all duration-500 ease-in-out transform flex flex-col gap-6 md:gap-10 justify-center items-center w-full md:w-[50vh] p-6 md:p-10 rounded-b-2xl md:rounded-b-none md:rounded-bl-2xl md:rounded-tl-2xl">
+
+                <div id="image-container2" class="bg-red-500 hidden transition-all duration-500 ease-in-out transform flex flex-col gap-6 md:gap-10 justify-center items-center w-full md:w-[50vh] p-8 md:p-10 order-1 md:order-2">
                     <div class="text-white text-2xl md:text-3xl font-bold text-center">
                         <h1>Seja bem-vindo a Custos!</h1>
                     </div>
-                    <div class="flex flex-col gap-5 text-center text-lg md:text-xl text-white">
+                    <div class="flex flex-col gap-5 text-center text-xl text-white">
                         <p>Já Possui uma conta?</p>
-                        <span id="activeLogin" class="bg-white rounded-xl px-4 py-2 text-red-500 border-4 border-red-300 font-bold cursor-pointer hover:bg-red-500 hover:border-white hover:text-white transition-all duration-300 outline-none">Entrar</span>
+                        <span id="activeLogin" class="bg-white rounded-xl px-4 py-2 text-red-500 border-4 border-red-300 font-bold cursor-pointer hover:bg-red-500 hover:border-white hover:text-white transition-all">Entrar</span>
                     </div>
                 </div>
             </div>
@@ -143,6 +137,22 @@
                             Excluir minha conta
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="confirm-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-[100] p-4">
+            <div class="bg-white w-full max-w-sm p-6 rounded-3xl shadow-2xl transform transition-all scale-95 opacity-0 animate-modal-in">
+                <div class="text-center">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="bi bi-exclamation-triangle text-red-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Tem certeza?</h3>
+                    <p class="text-gray-600 mb-6">Esta ação não pode ser desfeita. O usuário será excluído permanentemente.</p>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <button id="confirm-yes" class="w-full bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition-all">Sim, excluir</button>
+                    <button id="confirm-no" class="w-full bg-gray-200 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-300 transition-all">Cancelar</button>
                 </div>
             </div>
         </div>

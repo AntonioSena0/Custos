@@ -218,14 +218,15 @@ class AuthService {
             return null
         }
 
-        Logger.success('Usuário criado com sucesso')
+        
         
         const user = new Perfil(data)
         this.users.push(user)
-
         this.saveToStorage()
 
         this.currentUser = user
+        Logger.success('Usuário criado com sucesso')
+
         return user
 
     }
@@ -263,7 +264,7 @@ class UserService extends AuthService{
     }
 
     static update(data: Partial<UserDTO>): Perfil | null {
-        const user = this.currentUser
+        const user = AuthService.currentUser
     
         if (!user) {
             Logger.error("Nenhum usuário logado para atualizar");
@@ -306,7 +307,7 @@ class UserService extends AuthService{
 
     static delete(): boolean{
 
-        const user = this.currentUser
+        const user = AuthService.currentUser
 
         if (!user) {
             Logger.error("Nenhum usuário logado para deletar");
@@ -329,26 +330,20 @@ class UserService extends AuthService{
 
     static adminDelete(email: string): boolean {
 
-        const existingUser = this.users.find(u => u.getEmail() === email)
+        const index = AuthService.users.findIndex(u => u.getEmail() === email);
 
-        if(!existingUser) {
-
-            Logger.error("Usuário não existe para deletar");
-            return false;
-
+        if (index !== -1) {
+            if (AuthService.currentUser?.getEmail() === email) {
+                AuthService.currentUser = null;
+            }
+            
+            AuthService.users.splice(index, 1);
+            AuthService.saveToStorage();
+            Logger.success("Conta excluída pelo administrador");
+            return true;
         }
-
-        const index = this.users.findIndex(u => u.getEmail() === existingUser.getEmail())
-
-        if(index !== -1) {
-
-            this.users.splice(index, 1)
-            this.currentUser = null
-            this.saveToStorage()
-            Logger.success("Conta excluida com sucesso")
-            return true
-
-        }
+        Logger.error("Usuário não encontrado");
+        return false;
 
     }
 
@@ -388,7 +383,8 @@ const divNodes = {
     altbtn: document.querySelector("#alt-btn") as HTMLDivElement,
     adminModal: document.querySelector("#admin-modal") as HTMLDivElement,
     containerIL: document.querySelector("#image-container") as HTMLDivElement,
-    containerIC: document.querySelector("#image-container2") as HTMLDivElement
+    containerIC: document.querySelector("#image-container2") as HTMLDivElement,
+    confirmModal: document.querySelector("#confirm-modal") as HTMLDivElement
 
 }
 
@@ -402,6 +398,8 @@ const buttonNodes = {
     edit: document.querySelector("#edit-btn") as HTMLButtonElement,
     adminView: document.querySelector("#btn-admin-view") as HTMLButtonElement,
     deleteAcc: document.querySelector("#btn-delete-account") as HTMLButtonElement,
+    btnYes: document.querySelector("#confirm-yes") as HTMLButtonElement,
+    btnNo: document.querySelector("#confirm-no") as HTMLButtonElement
 
 }
 
@@ -432,20 +430,20 @@ if(elementsNodes.activeLogin) {
         divNodes.containerIC.classList.add('hidden');
         divNodes.containerL.classList.remove('hidden');
         divNodes.containerIL.classList.remove('hidden');
-
-        const mainContainer = divNodes.containerL.parentElement;
-        mainContainer?.classList.remove('flex-row-reverse');
-        mainContainer?.classList.add('flex-row');
-
         inputNodes.email.classList.remove('border-green-500');
         inputNodes.pass.classList.remove('border-green-500');
         inputNodes.email.classList.remove('border-red-500');
         inputNodes.pass.classList.remove('border-red-500');
+
+        const mainContainer = divNodes.containerL.parentElement;
+
+        mainContainer?.classList.remove('md:flex-row-reverse');
+
         formNodes.form.reset();
         document.title = 'Custos | Login';
 
         applyTransition(divNodes.containerL, 'animate-entranceL');
-        applyTransition(divNodes.containerIL, 'animate-entranceC')
+        applyTransition(divNodes.containerIL, 'animate-entranceC');
 
     });
 }
@@ -457,19 +455,20 @@ if(elementsNodes.desativeLogin) {
         divNodes.containerIL.classList.add('hidden');
         divNodes.containerC.classList.remove('hidden');
         divNodes.containerIC.classList.remove('hidden');
-
-        const mainContainer = divNodes.containerC.parentElement;
-        mainContainer?.classList.add('flex-row-reverse');
-
         inputNodes.email2.classList.remove('border-green-500');
         inputNodes.pass2.classList.remove('border-green-500');
         inputNodes.email2.classList.remove('border-red-500');
         inputNodes.pass2.classList.remove('border-red-500');
+
+        const mainContainer = divNodes.containerC.parentElement;
+        
+        mainContainer?.classList.add('md:flex-row-reverse');
+
         formNodes.form2.reset();
         document.title = 'Custos | Cadastro';
 
         applyTransition(divNodes.containerC, 'animate-entranceC');
-        applyTransition(divNodes.containerIC, 'animate-entranceL')
+        applyTransition(divNodes.containerIC, 'animate-entranceL');
 
     });
 }
@@ -676,9 +675,11 @@ if(formNodes.form3) {
 
 if(buttonNodes.deleteAcc) {
 
-    buttonNodes.deleteAcc.addEventListener("click", () => {
+    buttonNodes.deleteAcc.addEventListener("click", async () => {
 
-        if(confirm("Tem certeza que deseja excluir sua conta? Esta ação é irreversível")){
+        const confirmed = await customConfirm();
+
+        if(confirmed){
             if(UserService.delete()) {
                 divNodes.cardPerfil.classList.add('hidden')
                 inputNodes.email.classList.remove('border-green-500');
@@ -689,7 +690,10 @@ if(buttonNodes.deleteAcc) {
                 document.title = 'Custos | Login'
                 divNodes.containerL.classList.remove('hidden')
                 divNodes.containerIL.classList.remove('hidden')
+                Logger.success("Conta excluída");
             }
+        } else {
+            Logger.info("Exclusão cancelada pelo usuário.");
         }
 
     })
@@ -802,14 +806,14 @@ function renderAdminTable() {
         
         if(deleteF) {
 
-            deleteF.addEventListener("click", () => {
+            deleteF.addEventListener("click", async () => {
 
-                if (confirm("Tem certeza que deseja excluir essa conta? Esta ação é irreversível")) {
+                const confirmed = await customConfirm();
 
+                if (confirmed) {
                     if (UserService.adminDelete(user.getEmail())) {
-                        renderAdminTable()
+                        renderAdminTable();
                     }
-
                 }
 
             })
@@ -880,13 +884,38 @@ function applyInputStyle(input: HTMLInputElement, isValid: boolean) {
 function applyTransition(element: HTMLElement, animationClass: string) {
     
     element.classList.remove('animate-entranceC', 'animate-entranceL', 'animate-shake');
-    void element.offsetWidth;
+    void element.offsetWidth; 
     
     element.classList.add(animationClass);
 
     setTimeout(() => {
         element.classList.remove(animationClass);
     }, 600);
+}
+
+function customConfirm(): Promise<boolean> {
+
+    divNodes.confirmModal.classList.remove('hidden');
+    
+    return new Promise((resolve) => {
+        const handleYes = () => {
+            divNodes.confirmModal.classList.add('hidden');
+            cleanup();
+            resolve(true);
+        };
+        const handleNo = () => {
+            divNodes.confirmModal.classList.add('hidden');
+            cleanup();
+            resolve(false);
+        };
+        const cleanup = () => {
+            buttonNodes.btnYes.removeEventListener('click', handleYes);
+            buttonNodes.btnNo.removeEventListener('click', handleNo);
+        };
+
+        buttonNodes.btnYes.addEventListener('click', handleYes);
+        buttonNodes.btnNo.addEventListener('click', handleNo);
+    });
 }
 
 validateForms(inputNodes.email, inputNodes.submit, inputNodes.pass)
