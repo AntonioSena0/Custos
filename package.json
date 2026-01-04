@@ -1,0 +1,23 @@
+{
+  "name": "custos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "copy": "copyfiles -u 1 ./src/index.html ./dist/",
+    "build": "npm run copy && tsc -w",
+    "dev": "npm run copy && tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "copyfiles": "^2.4.1",
+    "prettier": "^3.6.2"
+  }
+}
