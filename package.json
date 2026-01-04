@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "copy": "copyfiles -u 1 ./src/index.html ./dist/",
+    "copy": "copyfiles index.html ./dist/",
     "build": "npm run copy && tsc",
     "dev": "npm run copy && tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
