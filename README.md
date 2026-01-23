@@ -1,5 +1,5 @@
-<details>
-<summary><b>🇧🇷 Português</b></summary>
+<details open>
+<summary><b>Portuguese Version</b></summary>
 
 # Custos 🛡️ | Sistema de Gestão e Autenticação
 
@@ -68,7 +68,7 @@ Este projeto está sob a licença MIT. Sinta-se à vontade para usar, estudar e 
 </details>
 
 <details>
-<summary><b>🇺🇸 English</b></summary>
+<summary><b>English Version</b></summary>
 
 # Custos 🛡️ | Management and Authentication System
 
